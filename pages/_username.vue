@@ -70,7 +70,7 @@ export default {
   async asyncData({ params }) {
     try {
       const page = params.username
-      const res = await axios.get(`http://localhost:3000/api/u/${page}`)
+      const res = await axios.get(`http://thegram.ga/api/u/${page}`)
       return {
         page: page,
         toplink: res.data[0],
