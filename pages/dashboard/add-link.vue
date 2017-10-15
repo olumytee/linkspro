@@ -1,40 +1,46 @@
 <template>
-  <div>
-    <custom-header></custom-header>
-    <div class="container">
-      <div class="columns">
-        <div class="column col-3">
-          <sidebar></sidebar>
-        </div>
-        <div class="column col-9">
-          <h3>Add link</h3>
-          <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
-          <p class="text-success" v-if="successMessage">{{successMessage}}</p>
-          <form class="form-horizontal" v-on:submit.prevent="add">
-            <div class="form-group">
-              <div class="col-1">
-                <label class="form-label" for="input-example-1">URL</label>
+  <div class="off-canvas">
+    <input type="checkbox" class="off-canvas-checkbox" id="sidebar-checkbox" name="sidebar-checkbox" hidden>
+    <!-- off-screen toggle button and close mask -->
+    <label class="off-canvas-toggle btn" for="sidebar-checkbox">
+      <i class="icon icon-menu"></i>
+    </label>
+    <div class="off-canvas-sidebar">
+      <!-- off-screen sidebar -->
+      <sidebar></sidebar>
+    </div>
+    <div class="off-canvas-body">
+      <custom-header></custom-header>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <h3>Add link</h3>
+            <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
+            <p class="text-success" v-if="successMessage">{{successMessage}}</p>
+            <form class="" v-on:submit.prevent="add">
+              <div class="columns">
+                <div class="column col-1 col-md-12 small-margin">
+                  <label class="form-label" for="input-example-1">URL</label>
+                </div>
+                <div class="column col-6 col-md-12 has-icon-right small-margin">
+                  <input type="url" class="form-input" placeholder="" v-model="link">
+                  <i class="form-icon" :class="{ 'loading': isLoading }"></i>
+                </div>
+                <div class="column col-2 col-md-12 small-margin">
+                  <select class="form-select" v-model="account">
+                    <option disabled value="">Choose an account</option>
+                    <option v-for="i in $store.state.accountsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                  </select>
+                </div>
+                <div class="column col-2 col-md-12 small-margin">
+                  <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add link</button>
+                </div>
               </div>
-              <div class="col-6 has-icon-right">
-                <input type="url" class="form-input" placeholder="" v-model="link">
-                <i class="form-icon" :class="{ 'loading': isLoading }"></i>
-              </div>
-              <div class="col-2">
-                <select class="form-select" v-model="account">
-                  <option disabled value="">Choose an account</option>
-                  <option v-for="i in $store.state.accountsTable" :value="i.username" :key="i.username">{{i.username}}</option>
-                </select>
-              </div>
-              <div class="col-2">
-                &nbsp;
-                <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add link</button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    <custom-footer></custom-footer>
   </div>
 </template>
 
@@ -96,13 +102,34 @@ export default {
 }
 </script>
 <style scoped>
+.off-canvas .off-canvas-sidebar {
+  padding: 0rem;
+}
+
+.off-canvas-body {
+  min-width: 100%;
+}
+
 .container {
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-left: 1rem;
+  padding-right: 4rem;
   padding-top: 1rem;
 }
 
 .form-label {
   padding: 8px 0;
+}
+
+@media only screen and (max-width: 840px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .form-label {
+    padding: 0;
+  }
+  .small-margin {
+    margin-bottom: 4px;
+  }
 }
 </style>

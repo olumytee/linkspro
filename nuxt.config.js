@@ -13,6 +13,7 @@ module.exports = {
   css: [
     '@/assets/css/spectre.min.css',
     '@/assets/css/spectre-icons.min.css',
+    '@/assets/css/spectre-exp.min.css',
     '@/assets/css/general.css'
   ],
   render: {

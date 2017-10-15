@@ -1,43 +1,53 @@
 <template>
-  <div>
-    <custom-header></custom-header>
-    <div class="container">
-      <div class="columns">
-        <div class="column col-3">
-          <sidebar></sidebar>
-        </div>
-        <div class="column col-7">
-          <h3>Add account</h3>
-          <div>
-            <p></p>
-            <p>
-              Type in an account name. This should ideally be your instagram username. For example if your instagram username is 'beyonce', you should enter 'beyonce' below so that you can get the bio link
-              <a href="#">thegram.bio/u/beyonce</a>
-            </p>
-          </div>
-          <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
-          <p class="text-success" v-if="successMessage">{{successMessage}}</p>
-          <form class="form-horizontal" v-on:submit.prevent="add">
-            <div class="form-group">
-              <div class="col-2">
-                <label class="form-label" for="input-example-1">Account name</label>
-              </div>
-              <div class="col-6 has-icon-right">
-                <input type="text" class="form-input" placeholder="" v-model="accountName">
-                <i class="form-icon" :class="{ 'loading': isLoading }"></i>
-              </div>
-              <div class="">
-                &nbsp;
-                <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add account</button>
+  <div class="off-canvas">
+    <input type="checkbox" class="off-canvas-checkbox" id="sidebar-checkbox" name="sidebar-checkbox" hidden>
+    <!-- off-screen toggle button and close mask -->
+    <label class="off-canvas-toggle btn" for="sidebar-checkbox">
+      <i class="icon icon-menu"></i>
+    </label>
+
+    <div class="off-canvas-sidebar">
+      <!-- off-screen sidebar -->
+      <sidebar></sidebar>
+
+    </div>
+    <div class="off-canvas-body">
+      <custom-header></custom-header>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="columns">
+              <div class="column col-6 col-md-12">
+                <h3>Add account</h3>
+                <p>
+                  *This should ideally be your instagram username. For example if your instagram username is 'beyonce', you should enter 'beyonce' below so that you can get the bio link
+                  <a href="#">thegram.bio/beyonce</a>
+                </p>
               </div>
             </div>
-          </form>
+            <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
+            <p class="text-success" v-if="successMessage">{{successMessage}}</p>
+            <form class="" v-on:submit.prevent="add">
+              <div class="columns">
+                <div class="column col-2 col-md-12 small-margin">
+                  <label class="form-label" for="input-example-1">Account name</label>
+                </div>
+                <div class="column col-4 col-md-12 has-icon-right small-margin">
+                  <input type="text" class="form-input" placeholder="" v-model="accountName" required>
+                  <i class="form-icon" :class="{ 'loading': isLoading }"></i>
+                </div>
+                <div class="column col-2 col-md-12 small-margin">
+                  <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add account</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    <custom-footer></custom-footer>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -61,35 +71,59 @@ export default {
   },
   methods: {
     add() {
-      this.isLoading = true;
-      this.errorMessage = null;
-      axios.post('/api/account', {
-        username: this.accountName,
-      })
-        .then((res) => {
-          this.accountName = ''
-          this.loginPassword = ''
-          this.successMessage = 'Account added'
-          this.isLoading = false
+      const regex = new RegExp(/^(dashboard|account|settings)$/i)
+      if (regex.test(this.accountName)) {
+        this.errorMessage = 'Invalid Account Name'
+        return;
+      } else {
+        this.isLoading = true;
+        this.errorMessage = null;
+        axios.post('/api/account', {
+          username: this.accountName,
         })
-        .catch((e) => {
-          console.log(e)
-          this.isLoading = false
-          this.errorMessage = e.response.data.message ? e.response.data.message : 'There was an error'
-        })
+          .then((res) => {
+            this.accountName = ''
+            this.loginPassword = ''
+            this.successMessage = 'Account added'
+            this.isLoading = false
+          })
+          .catch((e) => {
+            console.log(e)
+            this.isLoading = false
+            this.errorMessage = e.response.data.message ? e.response.data.message : 'There was an error'
+          })
+      }
     },
 
   }
 }
 </script>
 <style scoped>
+.off-canvas .off-canvas-sidebar {
+  padding: 0rem;
+}
+
+.off-canvas-body {
+  min-width: 100%;
+}
+
 .container {
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-left: 2em;
+  padding-right: 2em;
   padding-top: 1rem;
 }
 
 .form-label {
   padding: 8px 0;
+}
+
+@media only screen and (max-width: 840px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .small-margin {
+    margin-bottom: 4px;
+  }
 }
 </style>

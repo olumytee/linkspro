@@ -234,12 +234,20 @@ app.get('/api/u/:page', async (req, res) => {
   try {
     const page = req.params.page;
     const account = await Accounts.findOne({ username: page });
-    const links = await Links.find({
-      account: account._id
-    })
-      .sort('-createdAt')
-      .limit(5);
-    res.status(200).json(links);
+    if (account) {
+      const links = await Links.find({
+        account: account._id
+      })
+        .sort('-createdAt')
+        .limit(5);
+      if (links.length > 0) {
+        res.status(200).json(links);
+      } else {
+        res.sendStatus(200).json({ message: 'NoLinks' });
+      }
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     const message = error.message ? error.message : 'There was an error';
     res.status(401).send({ error: message });

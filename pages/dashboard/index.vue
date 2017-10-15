@@ -1,55 +1,65 @@
 <template>
-  <div>
-    <custom-header></custom-header>
-    <div class="container">
-      <div class="columns">
-        <div class="column col-3">
-          <sidebar></sidebar>
-        </div>
-        <div class="column col-6">
-          <div class="empty" v-if="!$store.state.accountsTable">
-            <p class="empty-subtitle">You can use multiple Instagram accounts, add an account to get started.</p>
-            <div class="empty-action">
-              <a class="btn btn-primary" href="/dashboard/add-account">Add an account</a>
+  <div class="off-canvas">
+    <input type="checkbox" class="off-canvas-checkbox" id="sidebar-checkbox" name="sidebar-checkbox" hidden>
+    <!-- off-screen toggle button and close mask -->
+    <label class="off-canvas-toggle btn" for="sidebar-checkbox">
+      <i class="icon icon-menu"></i>
+    </label>
+    <div class="off-canvas-sidebar">
+      <!-- off-screen sidebar -->
+      <sidebar></sidebar>
+    </div>
+    <div class="off-canvas-body">
+      <custom-header></custom-header>
+      <div class="container">
+        <div class="columns">
+          <div class="column col-10 col-md-12">
+            <div class="empty" v-if="!$store.state.accountsTable">
+              <p class="empty-subtitle">You can use multiple Instagram accounts, add an account to get started.</p>
+              <div class="empty-action">
+                <a class="btn btn-primary" href="/dashboard/add-account">Add an account</a>
+              </div>
             </div>
-          </div>
-          <div class="" v-else>
-            <h3>Your accounts</h3>
-            <table class="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>Account</th>
-                  <th>Links</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody v-if="$store.state.accountsTable">
-                <tr class="" v-for="item in $store.state.accountsTable" :key="item._id">
-                  <td>
-                    <a :href="'/u/' + item.username" target="_blank"> {{item.username}} </a>
-                  </td>
-                  <td>{{item.links.length || 0 }}</td>
-                  <td>
-                    <div class="">
-                      <button class="btn btn-action" @click="remove(item.username)">
-                        <i class="icon icon-delete"></i>
-                      </button>
-                      &nbsp;
-                      <button class="btn btn-action">
-                        <i class="icon icon-edit"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="" v-else>
+              <h3>Your accounts</h3>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Account</th>
+                    <th>Links</th>
+                    <th>Short URL</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody v-if="$store.state.accountsTable">
+                  <tr class="" v-for="item in $store.state.accountsTable" :key="item._id">
+                    <td>
+                      <a :href="'/' + item.username" target="_blank"> {{item.username}} </a>
+                    </td>
+                    <td>{{item.links.length || 0 }}</td>
+                    <td>{{`http://thegram.ga/${item.username}` }}</td>
+                    <td>
+                      <div class="">
+                        <button class="btn btn-action" @click="remove(item.username)">
+                          <i class="icon icon-delete"></i>
+                        </button>
+                        &nbsp;
+                        <button class="btn btn-action">
+                          <i class="icon icon-edit"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <custom-footer></custom-footer>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -83,8 +93,10 @@ export default {
       count: null
     }
   },
-  created() {
-
+  filters: {
+    formatLink(val) {
+      return `http://thegram.ga/u/${val}`
+    }
   },
   mounted() {
     this.initData()
@@ -121,10 +133,25 @@ export default {
 }
 </script>
 <style>
+.off-canvas .off-canvas-sidebar {
+  padding: 0rem;
+}
+
+.off-canvas-body {
+  min-width: 100%;
+}
+
 .container {
-  padding-left: 4em;
-  padding-right: 4em;
+  padding-left: 1rem;
+  padding-right: 4rem;
   padding-top: 1rem;
+}
+
+@media only screen and (max-width: 840px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 .loader {
@@ -148,20 +175,25 @@ export default {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   5%,
   95% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   10%,
   59% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
   }
+
   20% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
   }
+
   38% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
   }
+
   100% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
@@ -171,20 +203,25 @@ export default {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   5%,
   95% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
+
   10%,
   59% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
   }
+
   20% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
   }
+
   38% {
     box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
   }
+
   100% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
   }
@@ -195,11 +232,42 @@ export default {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -313,6 +381,7 @@ export default {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);

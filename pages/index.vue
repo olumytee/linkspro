@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="wrap">
     <custom-header></custom-header>
     <div class="container">
       <div class="columns text-center">
@@ -12,11 +12,13 @@
         <div class="column col-6">col-6</div>
       </div>
     </div>
+    <custom-footer></custom-footer>
   </div>
 </template>
 
 <script>
 import CustomHeader from '@/components/header'
+import CustomFooter from '@/components/footer'
 
 export default {
   head() {
@@ -27,14 +29,22 @@ export default {
       ]
     }
   },
+  mounted() {
+    console.log('docHeight')
+  },
   components: {
-    CustomHeader
+    CustomHeader, CustomFooter
   },
 }
 </script>
 
 <style scoped>
 .container {
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.navbar {
   padding-left: 4rem;
   padding-right: 4rem;
 }

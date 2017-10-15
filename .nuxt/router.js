@@ -4,11 +4,11 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _3350fddf = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages\\index" */).then(m => m.default || m)
-const _e48b5d7e = () => import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages\\dashboard\\index" */).then(m => m.default || m)
 const _746ac0d6 = () => import('..\\pages\\Login.vue' /* webpackChunkName: "pages\\Login" */).then(m => m.default || m)
-const _689059f2 = () => import('..\\pages\\dashboard\\add-link.vue' /* webpackChunkName: "pages\\dashboard\\add-link" */).then(m => m.default || m)
+const _e48b5d7e = () => import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages\\dashboard\\index" */).then(m => m.default || m)
 const _b8271ea0 = () => import('..\\pages\\dashboard\\add-account.vue' /* webpackChunkName: "pages\\dashboard\\add-account" */).then(m => m.default || m)
-const _c974c6ba = () => import('..\\pages\\u\\_username.vue' /* webpackChunkName: "pages\\u\\_username" */).then(m => m.default || m)
+const _689059f2 = () => import('..\\pages\\dashboard\\add-link.vue' /* webpackChunkName: "pages\\dashboard\\add-link" */).then(m => m.default || m)
+const _859b397c = () => import('..\\pages\\_username.vue' /* webpackChunkName: "pages\\_username" */).then(m => m.default || m)
 
 
 
@@ -50,19 +50,14 @@ export function createRouter () {
 			name: "index"
 		},
 		{
-			path: "/dashboard",
-			component: _e48b5d7e,
-			name: "dashboard"
-		},
-		{
 			path: "/Login",
 			component: _746ac0d6,
 			name: "Login"
 		},
 		{
-			path: "/dashboard/add-link",
-			component: _689059f2,
-			name: "dashboard-add-link"
+			path: "/dashboard",
+			component: _e48b5d7e,
+			name: "dashboard"
 		},
 		{
 			path: "/dashboard/add-account",
@@ -70,9 +65,14 @@ export function createRouter () {
 			name: "dashboard-add-account"
 		},
 		{
-			path: "/u/:username?",
-			component: _c974c6ba,
-			name: "u-username"
+			path: "/dashboard/add-link",
+			component: _689059f2,
+			name: "dashboard-add-link"
+		},
+		{
+			path: "/:username",
+			component: _859b397c,
+			name: "username"
 		}
     ],
     fallback: false

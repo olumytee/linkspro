@@ -5,29 +5,19 @@
     </section>
     <section class="navbar-section">
       <a href="/login" class="btn btn-cta" v-if="!$store.state.authUser">Log in/Sign up</a>
-      <a href="/login" class="btn btn-cta" v-else @click="logout">Sign out</a>
+      <a href="/dashboard" class="btn btn-cta" v-else>Dashboard</a>
     </section>
   </header>
 </template>
 
 <script>
 export default {
-  name: 'CustomHeader',
-  methods: {
-    logout() {
-      console.log('out')
-      this.$store.dispatch('logout')
-        .then(() => {
-          window.location.replace('/')
-        })
-    }
-  }
+  name: 'CustomHeader'
 }
 </script>
 <style>
 .navbar {
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 1rem;
   min-height: 4rem;
   background: #ECE9E6;
   background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);
@@ -41,7 +31,7 @@ export default {
 
 @media only screen and (max-width: 840px) {
   .navbar {
-    padding-left: 1rem;
+    padding-left: 3rem;
     padding-right: 1rem;
   }
 }
