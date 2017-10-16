@@ -16,6 +16,9 @@ module.exports = {
     '@/assets/css/spectre-exp.min.css',
     '@/assets/css/general.css'
   ],
+  plugins: [
+    { src: '@/plugins/ga.js', ssr: false }
+  ],
   render: {
     bundleRenderer: {
       shouldPreload: (file, type) => {

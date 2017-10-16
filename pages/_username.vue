@@ -4,7 +4,7 @@
     <div class="container">
       <div class="columns">
         <div class="column col-8 col-mx-auto col-md-12">
-          <div class="empty" v-if="!links">
+          <div class="empty" v-if="!toplink">
             <p class="empty-subtitle">You have not added any link yet</p>
             <div class="empty-action">
               <a class="btn btn-primary" href="/dashboard/add-links">Add a link</a>
@@ -33,14 +33,14 @@
               </div>
               <div class="column col-6 col-md-12">
                 <div class="card">
-                  Advert
+
                 </div>
               </div>
             </div>
             <div>
               <h5>Other links</h5>
             </div>
-            <div class="columns">
+            <div class="columns" v-if="links.length > 0">
               <div class="column col-4 col-md-12" v-for="i in links" :key="i._id">
                 <a :href="i.url">
                   <div class="card">
@@ -83,6 +83,9 @@ export default {
   head() {
     return {
       title: `@${this.page}'s links`,
+      script: [
+        { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }
+      ],
       meta: [
         { hid: 'description', name: 'description', content: `@${this.page}'s links` }
       ]

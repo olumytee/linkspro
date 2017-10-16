@@ -25,5 +25,7 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "heroku-postbuild": "npm run build"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "vue-adsense": "^1.0.1"
+  }
 }
