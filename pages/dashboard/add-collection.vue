@@ -18,7 +18,7 @@
           <div class="column">
             <div class="columns">
               <div class="column col-6 col-md-12">
-                <h3>Add account</h3>
+                <h3>Add collection</h3>
                 <p>
                   *This should ideally be your instagram username. For example if your instagram username is 'beyonce', you should enter 'beyonce' below so that you can get the bio link
                   <a href="#">thegram.bio/beyonce</a>
@@ -30,14 +30,14 @@
             <form class="" v-on:submit.prevent="add">
               <div class="columns">
                 <div class="column col-2 col-md-12 small-margin">
-                  <label class="form-label" for="input-example-1">Account name</label>
+                  <label class="form-label" for="input-example-1">Collection name</label>
                 </div>
                 <div class="column col-4 col-md-12 has-icon-right small-margin">
-                  <input type="text" class="form-input" placeholder="" v-model="accountName" required>
+                  <input type="text" class="form-input" placeholder="" v-model="collectionName" required>
                   <i class="form-icon" :class="{ 'loading': isLoading }"></i>
                 </div>
                 <div class="column col-2 col-md-12 small-margin">
-                  <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add account</button>
+                  <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add collection</button>
                 </div>
               </div>
             </form>
@@ -63,7 +63,7 @@ export default {
       successMessage: null,
       isLoading: false,
       isAvailable: false,
-      accountName: '',
+      collectionName: '',
     }
   },
   components: {
@@ -71,20 +71,20 @@ export default {
   },
   methods: {
     add() {
-      const regex = new RegExp(/^(dashboard|account|settings)$/i)
-      if (regex.test(this.accountName)) {
-        this.errorMessage = 'Invalid Account Name'
+      const regex = new RegExp(/^(dashboard|collection|settings)$/i)
+      if (regex.test(this.collectionName)) {
+        this.errorMessage = 'Invalid collection Name'
         return;
       } else {
         this.isLoading = true;
         this.errorMessage = null;
-        axios.post('/api/account', {
-          username: this.accountName,
+        axios.post('/api/collection', {
+          username: this.collectionName,
         })
           .then((res) => {
-            this.accountName = ''
+            this.collectionName = ''
             this.loginPassword = ''
-            this.successMessage = 'Account added'
+            this.successMessage = 'Collection added'
             this.isLoading = false
           })
           .catch((e) => {

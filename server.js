@@ -23,13 +23,13 @@ db.once('open', () => {
 });
 
 const Users = require('./db/model').Users;
-const Accounts = require('./db/model').Accounts;
+const Collections = require('./db/model').Collections;
 const Links = require('./db/model').Links;
 
 const validate = require('./lib/validation').validate;
 const userSchema = require('./lib/validation').userSchema;
 const userUpdateSchema = require('./lib/validation').userUpdateSchema;
-const accountSchema = require('./lib/validation').accountSchema;
+const collectionSchema = require('./lib/validation').collectionSchema;
 const linkSchema = require('./lib/validation').linkSchema;
 const linkUpdateSchema = require('./lib/validation').linkUpdateSchema;
 const findMeta = require('./lib/metafinder').findMeta;
@@ -66,7 +66,7 @@ app.post('/api/login', validate(userSchema), async (req, res) => {
   try {
     const parameters = req.value.body;
     const user = await Users.findOne({ email: parameters.email }).populate(
-      'accounts'
+      'collections'
     );
     if (user) {
       bcrypt.compare(parameters.password, user.password, (err, result) => {
@@ -113,56 +113,56 @@ app.put('/api/user', validate(userUpdateSchema), async (req, res) => {
 app.get('/api/dashboard', async (req, res) => {
   try {
     const user = req.session.authUser;
-    const update = await Users.findById(user._id).populate('accounts');
+    const update = await Users.findById(user._id).populate('collections');
     res.json(update);
   } catch (error) {
     res.status(401).json({ error: 'Bad credentials' });
   }
 });
 ////////////////////////////
-//// Accounts CRUD /////////
+//// Collections CRUD /////////
 ////////////////////////////
-app.post('/api/account', validate(accountSchema), async (req, res) => {
+app.post('/api/collection', validate(collectionSchema), async (req, res) => {
   try {
     const username = req.value.body.username;
-    const newAccount = new Accounts({
+    const newCollection = new Collections({
       username: username,
       user: req.session.authUser._id
     });
-    const account = await newAccount.save();
+    const collection = await newCollection.save();
     const updateUser = await Users.findByIdAndUpdate(req.session.authUser._id, {
-      $push: { accounts: account._id }
+      $push: { collections: collection._id }
     });
-    res.json(account.toObject());
+    res.json(collection.toObject());
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message || 'Error' });
   }
 });
 
-app.get('/api/account/:username', async (req, res) => {
+app.get('/api/collection/:username', async (req, res) => {
   try {
     const username = req.params.username;
-    const account = await Accounts.findOne({ username: username });
-    res.json(account.toObject());
+    const collection = await Collections.findOne({ username: username });
+    res.json(collection.toObject());
   } catch (error) {
     res.status(400).json({ error: error.message || 'Error' });
   }
 });
 
-app.delete('/api/account/:username', async (req, res) => {
+app.delete('/api/collection/:username', async (req, res) => {
   try {
     const username = req.params.username;
     const user = req.session.authUser;
-    const account = await Accounts.findOne({ username: username }).populate(
-      'user'
-    );
+    const collection = await Collections.findOne({
+      username: username
+    }).populate('user');
 
-    if (user._id.toString() === account.user._id.toString()) {
+    if (user._id.toString() === collection.user._id.toString()) {
       await Users.findByIdAndUpdate(user._id, {
-        $pull: { accounts: account._id }
+        $pull: { collections: collection._id }
       });
-      await Accounts.findByIdAndRemove(account._id);
+      await Collections.findByIdAndRemove(collection._id);
       res.sendStatus(200);
     } else {
       throw Error('Unauthorized');
@@ -179,19 +179,22 @@ app.delete('/api/account/:username', async (req, res) => {
 app.post('/api/link', validate(linkSchema), async (req, res) => {
   try {
     const data = req.value.body;
-    const account = await Accounts.findOne({ username: data.account });
+    const collection = await Collections.findOne({ username: data.collection });
     const user = req.session.authUser;
     const meta = await findMeta(data.url);
     const newLink = new Links({
       url: data.url,
       meta: meta,
-      account: account._id,
+      links_collection: collection._id,
       user: user._id
     });
     const link = await newLink.save();
-    const updateAccount = await Accounts.findByIdAndUpdate(account._id, {
-      $push: { links: link._id }
-    });
+    const updateCollection = await Collections.findByIdAndUpdate(
+      collection._id,
+      {
+        $push: { links: link._id }
+      }
+    );
     res.json(link.toObject());
   } catch (error) {
     res.status(400).json({ error: error.message || 'Error' });
@@ -202,8 +205,8 @@ app.put('/api/link/:id', validate(linkUpdateSchema), async (req, res) => {
   try {
     const id = req.params.id;
     const parameters = req.value.body;
-    const account = await Links.findByIdAndUpdate(id, parameters);
-    res.json(account.toObject());
+    const collection = await Links.findByIdAndUpdate(id, parameters);
+    res.json(collection.toObject());
   } catch (error) {
     res.status(400).json({ error: error.message || 'Error' });
   }
@@ -213,11 +216,11 @@ app.delete('/api/link/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const link = await Links.findById(id)
-      .populate('account')
+      .populate('links_collection')
       .populate('user');
     const user = req.session.authUser;
     if (user._id.toString() === link.user._id.toString()) {
-      await Accounts.findByIdAndUpdate(link.account._id, {
+      await Collections.findByIdAndUpdate(link.links_collection._id, {
         $pull: { links: link._id }
       });
       await Links.findByIdAndRemove(link._id);
@@ -233,10 +236,10 @@ app.delete('/api/link/:id', async (req, res) => {
 app.get('/api/u/:page', async (req, res) => {
   try {
     const page = req.params.page;
-    const account = await Accounts.findOne({ username: page });
-    if (account) {
+    const collection = await Collections.findOne({ username: page });
+    if (collection) {
       const links = await Links.find({
-        account: account._id
+        links_collection: collection._id
       })
         .sort('-createdAt')
         .limit(5);

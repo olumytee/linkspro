@@ -6,7 +6,7 @@ Vue.use(Router)
 const _3350fddf = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages\\index" */).then(m => m.default || m)
 const _746ac0d6 = () => import('..\\pages\\Login.vue' /* webpackChunkName: "pages\\Login" */).then(m => m.default || m)
 const _e48b5d7e = () => import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages\\dashboard\\index" */).then(m => m.default || m)
-const _b8271ea0 = () => import('..\\pages\\dashboard\\add-account.vue' /* webpackChunkName: "pages\\dashboard\\add-account" */).then(m => m.default || m)
+const _1d4b982a = () => import('..\\pages\\dashboard\\add-collection.vue' /* webpackChunkName: "pages\\dashboard\\add-collection" */).then(m => m.default || m)
 const _689059f2 = () => import('..\\pages\\dashboard\\add-link.vue' /* webpackChunkName: "pages\\dashboard\\add-link" */).then(m => m.default || m)
 const _859b397c = () => import('..\\pages\\_username.vue' /* webpackChunkName: "pages\\_username" */).then(m => m.default || m)
 
@@ -60,9 +60,9 @@ export function createRouter () {
 			name: "dashboard"
 		},
 		{
-			path: "/dashboard/add-account",
-			component: _b8271ea0,
-			name: "dashboard-add-account"
+			path: "/dashboard/add-collection",
+			component: _1d4b982a,
+			name: "dashboard-add-collection"
 		},
 		{
 			path: "/dashboard/add-link",

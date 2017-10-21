@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema(
     email: { type: String, unique: true },
     password: String,
     meta: mongoose.Schema.Types.Mixed,
-    accounts: [{ ref: 'Accounts', type: mongoose.Schema.Types.ObjectId }]
+    collections: [{ ref: 'Collections', type: mongoose.Schema.Types.ObjectId }]
   },
   { timestamps: true }
 );
@@ -27,7 +27,7 @@ userSchema.pre('save', function(next) {
 
 const Users = mongoose.model('Users', userSchema);
 
-const accountsSchema = mongoose.Schema(
+const collectionsSchema = mongoose.Schema(
   {
     username: { type: String, unique: true },
     links: [{ ref: 'Links', type: mongoose.Schema.Types.ObjectId }],
@@ -36,13 +36,13 @@ const accountsSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Accounts = mongoose.model('Accounts', accountsSchema);
+const Collections = mongoose.model('Collections', collectionsSchema);
 
 const linksSchema = mongoose.Schema(
   {
     url: { type: String },
     meta: mongoose.Schema.Types.Mixed,
-    account: { ref: 'Accounts', type: String },
+    links_collection: { ref: 'Collections', type: String },
     user: { ref: 'Users', type: String },
     clickCount: Number
   },
@@ -53,6 +53,6 @@ const Links = mongoose.model('Links', linksSchema);
 
 module.exports = {
   Users: Users,
-  Accounts: Accounts,
+  Collections: Collections,
   Links: Links
 };

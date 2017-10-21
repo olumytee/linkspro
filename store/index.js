@@ -1,8 +1,15 @@
 import axios from 'axios';
 
+const url = {
+  dev: 'http://localhost:3000/api',
+  staging: 'http://thegram.ga/api',
+  production: ''
+};
+
 export const state = () => ({
   authUser: null,
-  accountsTable: null
+  collectionsTable: null,
+  url: url.dev
 });
 
 export const mutations = {
@@ -10,7 +17,7 @@ export const mutations = {
     state.authUser = user;
   },
   SET_ACCOUNTS: function(state, data) {
-    state.accountsTable = data;
+    state.collectionsTable = data;
   }
 };
 
@@ -65,8 +72,12 @@ export const actions = {
     return axios
       .get('/api/dashboard')
       .then(res => {
-        if (res.data && res.data.accounts && res.data.accounts.length > 0) {
-          commit('SET_ACCOUNTS', res.data.accounts);
+        if (
+          res.data &&
+          res.data.collections &&
+          res.data.collections.length > 0
+        ) {
+          commit('SET_ACCOUNTS', res.data.collections);
         }
       })
       .catch(e => {
@@ -76,11 +87,11 @@ export const actions = {
         throw new Error(errorMessage);
       });
   },
-  delete_account({ commit }, { username }) {
+  delete_collection({ commit }, { username }) {
     return axios
-      .delete(`/api/account/${username}`)
+      .delete(`/api/collection/${username}`)
       .then(res => {
-        const data = this.state.accountsTable.filter(
+        const data = this.state.collectionsTable.filter(
           e => e.username !== username
         );
         commit('SET_ACCOUNTS', data);

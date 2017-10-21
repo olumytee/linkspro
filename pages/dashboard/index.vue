@@ -14,25 +14,25 @@
       <div class="container">
         <div class="columns">
           <div class="column col-10 col-md-12">
-            <div class="empty" v-if="!$store.state.accountsTable">
-              <p class="empty-subtitle">You can use multiple Instagram accounts, add an account to get started.</p>
+            <div class="empty" v-if="!$store.state.collectionsTable">
+              <p class="empty-subtitle">You can add multiple collections, add a collection to get started.</p>
               <div class="empty-action">
-                <a class="btn btn-primary" href="/dashboard/add-account">Add an account</a>
+                <a class="btn btn-primary" href="/dashboard/add-collection">Add collection</a>
               </div>
             </div>
             <div class="" v-else>
-              <h3>Your accounts</h3>
+              <h3>Your collections</h3>
               <table class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th>Account</th>
+                    <th>Collection</th>
                     <th>Links</th>
                     <th>Short URL</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody v-if="$store.state.accountsTable">
-                  <tr class="" v-for="item in $store.state.accountsTable" :key="item._id">
+                <tbody v-if="$store.state.collectionsTable">
+                  <tr class="" v-for="item in $store.state.collectionsTable" :key="item._id">
                     <td>
                       <a :href="'/' + item.username" target="_blank"> {{item.username}} </a>
                     </td>
@@ -120,7 +120,7 @@ export default {
     },
     remove(username) {
       console.log(username)
-      this.$store.dispatch('delete_account', { username: username })
+      this.$store.dispatch('delete_collection', { username: username })
         .then((res) => {
           console.log('done')
         })

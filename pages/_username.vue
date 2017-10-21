@@ -10,7 +10,7 @@
               <a class="btn btn-primary" href="/dashboard/add-links">Add a link</a>
             </div>
           </div>
-          <div class="" v-else>
+          <div class="" v-if="toplink">
             <div class="text-center">
               <p :data-letters="page.substr(0, 1).toUpperCase()"></p>
               <p class="empty-subtitle text-center">{{`@${page}'s links`}}</p>
@@ -83,9 +83,9 @@ export default {
   head() {
     return {
       title: `@${this.page}'s links`,
-      script: [
-        { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }
-      ],
+      // script: [
+      //   { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }
+      // ],
       meta: [
         { hid: 'description', name: 'description', content: `@${this.page}'s links` }
       ]

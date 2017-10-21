@@ -27,9 +27,9 @@
                   <i class="form-icon" :class="{ 'loading': isLoading }"></i>
                 </div>
                 <div class="column col-2 col-md-12 small-margin">
-                  <select class="form-select" v-model="account">
-                    <option disabled value="">Choose an account</option>
-                    <option v-for="i in $store.state.accountsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                  <select class="form-select" v-model="collection">
+                    <option disabled value="">Choose a collection</option>
+                    <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
                   </select>
                 </div>
                 <div class="column col-2 col-md-12 small-margin">
@@ -59,7 +59,7 @@ export default {
       isLoading: false,
       isAvailable: false,
       link: '',
-      account: '',
+      collection: '',
     }
   },
   mounted() {
@@ -74,10 +74,10 @@ export default {
       this.errorMessage = null;
       axios.post('/api/link', {
         url: this.link,
-        account: this.account
+        collection: this.collection
       })
         .then((res) => {
-          this.link = this.account = ''
+          this.link = this.collection = ''
           this.loginPassword = ''
           this.successMessage = 'Link added'
           this.isLoading = false

@@ -16,8 +16,8 @@
       <li class="divider" data-content="ADD">
       </li>
       <li class="menu-item">
-        <a href="/dashboard/add-account">
-          Add account
+        <a href="/dashboard/add-collection">
+          Add collection
         </a>
       </li>
       <li class="menu-item">
