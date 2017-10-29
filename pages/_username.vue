@@ -70,7 +70,7 @@ export default {
   async asyncData({ params }) {
     try {
       const page = params.username;
-      const res = await axios.get(`/api/u/${page}`);
+      const res = await axios.get(`https://mycoo.link/api/u/${page}`);
       return {
         page: page,
         toplink: res.data[0],
