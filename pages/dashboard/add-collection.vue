@@ -12,16 +12,15 @@
 
     </div>
     <div class="off-canvas-body">
-      <custom-header></custom-header>
+      <custom-header title="Add collection"></custom-header>
       <div class="container">
         <div class="columns">
           <div class="column">
             <div class="columns">
               <div class="column col-6 col-md-12">
-                <h3>Add collection</h3>
                 <p>
                   *This should ideally be your instagram username. For example if your instagram username is 'beyonce', you should enter 'beyonce' below so that you can get the bio link
-                  <a href="#">thegram.bio/beyonce</a>
+                  <a href="#">mycoo.link/beyonce</a>
                 </p>
               </div>
             </div>
@@ -50,10 +49,10 @@
 
 
 <script>
-import axios from 'axios'
-import CustomHeader from '@/components/header'
-import CustomFooter from '@/components/footer'
-import Sidebar from '@/components/sidebar'
+import axios from 'axios';
+import CustomHeader from '@/components/headerIn';
+import CustomFooter from '@/components/footer';
+import Sidebar from '@/components/sidebar';
 
 export default {
   middleware: 'auth',
@@ -63,40 +62,44 @@ export default {
       successMessage: null,
       isLoading: false,
       isAvailable: false,
-      collectionName: '',
-    }
+      collectionName: ''
+    };
   },
   components: {
-    CustomHeader, CustomFooter, Sidebar
+    CustomHeader,
+    CustomFooter,
+    Sidebar
   },
   methods: {
     add() {
-      const regex = new RegExp(/^(dashboard|collection|settings|api)$/i)
+      const regex = new RegExp(/^(dashboard|collection|settings|api)$/i);
       if (regex.test(this.collectionName)) {
-        this.errorMessage = 'Invalid collection Name'
+        this.errorMessage = 'Invalid collection Name';
         return;
       } else {
         this.isLoading = true;
         this.errorMessage = null;
-        axios.post('/api/collection', {
-          username: this.collectionName,
-        })
-          .then((res) => {
-            this.collectionName = ''
-            this.loginPassword = ''
-            this.successMessage = 'Collection added'
-            this.isLoading = false
+        axios
+          .post('/api/collection', {
+            username: this.collectionName
           })
-          .catch((e) => {
-            console.log(e)
-            this.isLoading = false
-            this.errorMessage = e.response.data.message ? e.response.data.message : 'There was an error'
+          .then(res => {
+            this.collectionName = '';
+            this.loginPassword = '';
+            this.successMessage = 'Collection added';
+            this.isLoading = false;
           })
+          .catch(e => {
+            console.log(e);
+            this.isLoading = false;
+            this.errorMessage = e.response.data.message
+              ? e.response.data.message
+              : 'There was an error';
+          });
       }
-    },
-
+    }
   }
-}
+};
 </script>
 <style scoped>
 .off-canvas .off-canvas-sidebar {
@@ -108,8 +111,8 @@ export default {
 }
 
 .container {
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 1em;
+  padding-right: 1em;
   padding-top: 1rem;
 }
 

@@ -5,7 +5,7 @@
     <section class="header--padding">
       <header class="navbar">
         <section class="navbar-section">
-          <a href="/" class="navbar-brand text-gray">TheGram.bio</a>
+          <a href="/" class="navbar-brand text-gray">MyCoolLink</a>
         </section>
         <section class="navbar-section">
           <a href="/login" class="btn btn-cta" v-if="!$store.state.authUser">Sign in</a>
@@ -53,8 +53,8 @@ export default {
   background: linear-gradient(left, #a78bde, #ec5d59);
 }
 @media only screen and (max-width: 840px) {
-  .navbar {
-    padding-left: 3rem;
+  .header--padding {
+    padding-left: 1rem;
     padding-right: 1rem;
   }
 }

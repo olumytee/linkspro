@@ -3,13 +3,13 @@ import axios from 'axios';
 const url = {
   dev: 'http://localhost:3000/api',
   staging: 'http://thegram.ga/api',
-  production: ''
+  production: 'http://mycoo.link/api'
 };
 
 export const state = () => ({
   authUser: null,
   collectionsTable: null,
-  url: url.dev
+  url: url.production
 });
 
 export const mutations = {

@@ -9,34 +9,34 @@
 				</div>
       </div>
       <div class="columns content--padding">
-        <div class="column col-6 inner--padding">
+        <div class="column col-6 col-md-12 inner--padding">
 					<h2>
-						Collect links boom for publishers !
+						Collect links for publishers !
 					</h2>
 					<p>
-						Open IG, go to "Edit your Instagram profile", paste your new URL and you're done. If you ever need to change your links, come back to LNK.bio and edit them without the need to change your URL on your IG profile.
+						add link collecrttion, get unique url and 
 					</p>
 				</div>
-        <div class="column col-6">
+        <div class="column col-6 col-md-12">
 					<div class="columns">
-						<div class="column col-6">
+						<div class="column col-6 col-md-12">
 							<div class="card">
 								Create your personal Url and place it in your Instagram Bio
 							</div>
 						</div>
-						<div class="column col-6">
+						<div class="column col-6 col-md-12">
 							<div class="card">
 								With a cutting-edge interface, followers clicking on your Url will experience a great visual.
 							</div>
 						</div>
 					</div>
 					<div class="columns">
-						<div class="column col-6">
+						<div class="column col-6 col-md-12">
 							<div class="card">
 								Add as many links as you wish, change them as often as you want
 							</div>
 						</div>
-						<div class="column col-6">
+						<div class="column col-6 col-md-12">
 							<div class="card">
 								No need to install anything, just access anytime via browser from any device.
 							</div>
@@ -111,5 +111,18 @@ export default {
 .card:hover {
   text-decoration: none;
   box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.15);
+}
+@media only screen and (max-width: 840px) {
+  .content--padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .hero {
+    color: #ffffff;
+    padding: 2rem;
+  }
+  .inner--padding {
+    padding: 20px 20px;
+  }
 }
 </style>

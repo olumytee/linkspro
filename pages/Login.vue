@@ -16,7 +16,7 @@
               <form v-on:submit.prevent="login">
                 <div class="form-group">
                   <label class="form-label" for="input-example-1">Email</label>
-                  <input class="form-input" type="email" id="input-example-1" placeholder="john@thegram.bio" required v-model="loginEmail">
+                  <input class="form-input" type="email" id="input-example-1" placeholder="john@MyCoolLink" required v-model="loginEmail">
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="password">Password</label>
@@ -37,7 +37,7 @@
               <form v-on:submit.prevent="register" autocomplete="off">
                 <div class="form-group">
                   <label class="form-label" for="input-example-1">Email</label>
-                  <input class="form-input" type="email" id="input-example-1" placeholder="john@thegram.bio" required v-model="regEmail" readonly onfocus="this.removeAttribute('readonly');">
+                  <input class="form-input" type="email" id="input-example-1" placeholder="john@MyCoolLink" required v-model="regEmail" readonly onfocus="this.removeAttribute('readonly');">
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="password">Password</label>
@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import CustomHeader from '@/components/header'
-import CustomFooter from '@/components/footer'
+import CustomHeader from '@/components/header';
+import CustomFooter from '@/components/footer';
 
 export default {
   data() {
@@ -73,50 +73,57 @@ export default {
       regPassword: '',
       message: null,
       messageClass: null
-    }
+    };
   },
   methods: {
     login() {
       this.inLoading = true;
-      this.$store.dispatch('login', {
-        email: this.loginEmail,
-        password: this.loginPassword
-      })
+      this.$store
+        .dispatch('login', {
+          email: this.loginEmail,
+          password: this.loginPassword
+        })
         .then(() => {
-          this.loginEmail = ''
-          this.loginPassword = ''
-          this.inLoading = false
-          this.$router.push('/dashboard')
+          this.loginEmail = '';
+          this.loginPassword = '';
+          this.inLoading = false;
+          this.$router.push('/dashboard');
         })
-        .catch((e) => {
-          this.inLoading = false
-          this.messageClass = 'notification is-danger'
-          this.message = e.response.data.message ? e.response.data.message : 'There was an error'
-        })
+        .catch(e => {
+          this.inLoading = false;
+          this.messageClass = 'notification is-danger';
+          this.message = e.response.data.message
+            ? e.response.data.message
+            : 'There was an error';
+        });
     },
     register() {
       this.regLoading = true;
-      this.$store.dispatch('register', {
-        email: this.regEmail,
-        password: this.regPassword
-      })
+      this.$store
+        .dispatch('register', {
+          email: this.regEmail,
+          password: this.regPassword
+        })
         .then(() => {
-          this.loginEmail = ''
-          this.loginPassword = ''
-          this.regLoading = false
-          this.$router.push('/dashboard')
+          this.loginEmail = '';
+          this.loginPassword = '';
+          this.regLoading = false;
+          this.$router.push('/dashboard');
         })
-        .catch((e) => {
-          this.regLoading = false
-          this.messageClass = 'notification is-danger'
-          this.message = e.response.data.message ? e.response.data.message : 'There was an error'
-        })
+        .catch(e => {
+          this.regLoading = false;
+          this.messageClass = 'notification is-danger';
+          this.message = e.response.data.message
+            ? e.response.data.message
+            : 'There was an error';
+        });
     }
   },
   components: {
-    CustomHeader, CustomFooter
-  },
-}
+    CustomHeader,
+    CustomFooter
+  }
+};
 </script>
 
 <style scoped>

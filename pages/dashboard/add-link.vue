@@ -10,11 +10,10 @@
       <sidebar></sidebar>
     </div>
     <div class="off-canvas-body">
-      <custom-header></custom-header>
+      <custom-header title="Add link"></custom-header>
       <div class="container">
         <div class="columns">
           <div class="column">
-            <h3>Add link</h3>
             <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
             <p class="text-success" v-if="successMessage">{{successMessage}}</p>
             <form class="" v-on:submit.prevent="add">
@@ -45,10 +44,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-import CustomHeader from '@/components/header'
-import CustomFooter from '@/components/footer'
-import Sidebar from '@/components/sidebar'
+import axios from 'axios';
+import CustomHeader from '@/components/headerIn';
+import CustomFooter from '@/components/footer';
+import Sidebar from '@/components/sidebar';
 
 export default {
   middleware: 'auth',
@@ -59,47 +58,53 @@ export default {
       isLoading: false,
       isAvailable: false,
       link: '',
-      collection: '',
-    }
+      collection: ''
+    };
   },
   mounted() {
-    this.initData()
+    this.initData();
   },
   components: {
-    CustomHeader, CustomFooter, Sidebar
+    CustomHeader,
+    CustomFooter,
+    Sidebar
   },
   methods: {
     add() {
       this.isLoading = true;
       this.errorMessage = null;
-      axios.post('/api/link', {
-        url: this.link,
-        collection: this.collection
-      })
-        .then((res) => {
-          this.link = this.collection = ''
-          this.loginPassword = ''
-          this.successMessage = 'Link added'
-          this.isLoading = false
+      axios
+        .post('/api/link', {
+          url: this.link,
+          collection: this.collection
         })
-        .catch((e) => {
-          console.log(e)
-          this.isLoading = false
-          this.errorMessage = e.response.data.message ? e.response.data.message : 'There was an error'
+        .then(res => {
+          this.link = this.collection = '';
+          this.loginPassword = '';
+          this.successMessage = 'Link added';
+          this.isLoading = false;
         })
+        .catch(e => {
+          console.log(e);
+          this.isLoading = false;
+          this.errorMessage = e.response.data.message
+            ? e.response.data.message
+            : 'There was an error';
+        });
     },
     initData() {
-      this.$store.dispatch('load_dashboard')
-        .then((res) => {
-          console.log('done')
+      this.$store
+        .dispatch('load_dashboard')
+        .then(res => {
+          console.log('done');
         })
-        .catch((e) => {
-          console.log(e)
-          this.isLoading = false
-        })
-    },
+        .catch(e => {
+          console.log(e);
+          this.isLoading = false;
+        });
+    }
   }
-}
+};
 </script>
 <style scoped>
 .off-canvas .off-canvas-sidebar {

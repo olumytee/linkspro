@@ -1,13 +1,13 @@
 module.exports = {
   head: {
-    title: 'The Gram',
+    title: 'MyCoolLink',
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
       },
-      { hid: 'description', content: 'The Gram' }
+      { hid: 'description', content: 'MyCoolLink' }
     ]
   },
   css: [
@@ -16,9 +16,7 @@ module.exports = {
     '@/assets/css/spectre-exp.min.css',
     '@/assets/css/general.css'
   ],
-  plugins: [
-    { src: '@/plugins/ga.js', ssr: false }
-  ],
+  plugins: [{ src: '@/plugins/ga.js', ssr: false }],
   render: {
     bundleRenderer: {
       shouldPreload: (file, type) => {

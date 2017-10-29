@@ -27,7 +27,7 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"title":"The Gram","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1.0, shrink-to-fit=no"},{"hid":"description","content":"The Gram"}],"link":[],"style":[],"script":[]},
+  head: {"title":"MyCoolLink","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1.0, shrink-to-fit=no"},{"hid":"description","content":"MyCoolLink"}],"link":[],"style":[],"script":[]},
   data: () => ({
     layout: null,
     layoutName: ''
