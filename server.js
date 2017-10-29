@@ -9,7 +9,7 @@ const axios = require('axios');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 global.Promise = require('q').Promise;
-const mongourl = process.env.MONGODB_URI || 'mongodb://localhost/thegram';
+const mongourl = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/thegram';
 mongoose.connect(mongourl, {
   useMongoClient: true,
   promiseLibrary: global.Promise
@@ -84,7 +84,7 @@ app.post('/api/login', validate(userSchema), async (req, res) => {
         }
       });
     } else {
-      throw new Error();
+      throw new Error('User does not exist');
     }
   } catch (error) {
     res.status(401).json({ error: 'Bad credentials' });
