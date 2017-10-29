@@ -37,7 +37,7 @@
                       <a :href="'/' + item.username" target="_blank"> {{item.username}} </a>
                     </td>
                     <td>{{item.links.length || 0 }}</td>
-                    <td>{{`http://thegram.ga/${item.username}` }}</td>
+                    <td>{{`https://mycoo.link/${item.username}` }}</td>
                     <td>
                       <div class="">
                         <button class="btn btn-action" @click="remove(item.username)">
@@ -95,7 +95,7 @@ export default {
   },
   filters: {
     formatLink(val) {
-      return `http://thegram.ga/u/${val}`
+      return `https://mycoo.link/${val}`
     }
   },
   mounted() {

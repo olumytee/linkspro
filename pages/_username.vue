@@ -61,23 +61,23 @@
 </template>
 
 <script>
-import axios from 'axios'
-import CustomHeader from '@/components/header'
-import CustomFooter from '@/components/footer'
-import Sidebar from '@/components/sidebar'
+import axios from 'axios';
+import CustomHeader from '@/components/header';
+import CustomFooter from '@/components/footer';
+import Sidebar from '@/components/sidebar';
 
 export default {
   async asyncData({ params }) {
     try {
-      const page = params.username
-      const res = await axios.get(`http://thegram.ga/api/u/${page}`)
+      const page = params.username;
+      const res = await axios.get(`/api/u/${page}`);
       return {
         page: page,
         toplink: res.data[0],
         links: res.data.filter((v, i) => i !== 0)
-      }
+      };
     } catch (e) {
-      console.log(e.message)
+      console.log(e.message);
     }
   },
   head() {
@@ -87,19 +87,22 @@ export default {
       //   { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }
       // ],
       meta: [
-        { hid: 'description', name: 'description', content: `@${this.page}'s links` }
+        {
+          hid: 'description',
+          name: 'description',
+          content: `@${this.page}'s links`
+        }
       ]
-    }
+    };
   },
   data() {
-    return {
-
-    }
+    return {};
   },
   components: {
-    CustomHeader, CustomFooter
+    CustomHeader,
+    CustomFooter
   }
-}
+};
 </script>
 <style>
 .container {
@@ -108,9 +111,9 @@ export default {
   padding-top: 1rem;
 }
 
-.card-image>img {
+.card-image > img {
   min-width: 100%;
-  height: 300px
+  height: 300px;
 }
 
 [data-letters]:before {

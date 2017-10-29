@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     add() {
-      const regex = new RegExp(/^(dashboard|collection|settings)$/i)
+      const regex = new RegExp(/^(dashboard|collection|settings|api)$/i)
       if (regex.test(this.collectionName)) {
         this.errorMessage = 'Invalid collection Name'
         return;
