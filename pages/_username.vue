@@ -151,5 +151,9 @@ export default {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .navbar {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 </style>

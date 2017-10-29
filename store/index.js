@@ -11,7 +11,6 @@ export const state = () => ({
   collectionsTable: null,
   url: url.production
 });
-
 export const mutations = {
   SET_USER: function(state, user) {
     state.authUser = user;
