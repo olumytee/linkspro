@@ -14,31 +14,31 @@
 						Collect links for publishers !
 					</h2>
 					<p>
-						add link collecrttion, get unique url and 
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
 					</p>
 				</div>
         <div class="column col-6 col-md-12">
 					<div class="columns">
 						<div class="column col-6 col-md-12">
 							<div class="card">
-								Create your personal Url and place it in your Instagram Bio
+								"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
 							</div>
 						</div>
 						<div class="column col-6 col-md-12">
 							<div class="card">
-								With a cutting-edge interface, followers clicking on your Url will experience a great visual.
+								"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
 							</div>
 						</div>
 					</div>
 					<div class="columns">
 						<div class="column col-6 col-md-12">
 							<div class="card">
-								Add as many links as you wish, change them as often as you want
+								"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
 							</div>
 						</div>
 						<div class="column col-6 col-md-12">
 							<div class="card">
-								No need to install anything, just access anytime via browser from any device.
+								"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@ import CustomFooter from '@/components/footer';
 export default {
   head() {
     return {
-      title: 'Link in bio',
+      title: 'MyCoolLink',
       meta: [
         {
           hid: 'description',

@@ -20,10 +20,10 @@
                 <a :href="top.url">
                   <div class="card">
                     <div class="card-image">
-                      <img :src="top.meta.image.url" class="img-responsive">
+                      <img :src="top.meta.image" class="img-responsive">
                     </div>
                     <div class="card-header">
-                      <div class="card-title h5">{{top.meta.site_name}}</div>
+                      <div class="card-title h5">{{top.meta.title}}</div>
                     </div>
                     <div class="card-body">
                       {{top.meta.description}}
@@ -41,12 +41,12 @@
               <h5></h5>
             </div>
             <div class="columns" v-if="links.length > 0">
-              <div class="column col-4 col-md-12" v-for="i in links" :key="i._id">
+              <div class="column col-6 col-md-12" v-for="i in links" :key="i._id">
                 <a :href="i.url">
                   <div class="card">
                     <div class="card-header">
                       <div class="card-title h5">{{i.meta.title || 'Title'}}</div>
-                      <div class="card-subtitle text-gray">{{i.meta.site_name || i.url}}</div>
+                      <div class="card-subtitle text-gray">{{i.meta.description}}</div>
                     </div>
                   </div>
                 </a>
@@ -93,9 +93,6 @@ export default {
   head() {
     return {
       title: `@${this.page}'s links`,
-      // script: [
-      //   { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' }
-      // ],
       meta: [
         {
           hid: 'description',

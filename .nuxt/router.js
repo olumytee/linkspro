@@ -8,6 +8,7 @@ const _746ac0d6 = () => import('..\\pages\\Login.vue' /* webpackChunkName: "page
 const _e48b5d7e = () => import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages\\dashboard\\index" */).then(m => m.default || m)
 const _1d4b982a = () => import('..\\pages\\dashboard\\add-collection.vue' /* webpackChunkName: "pages\\dashboard\\add-collection" */).then(m => m.default || m)
 const _689059f2 = () => import('..\\pages\\dashboard\\add-link.vue' /* webpackChunkName: "pages\\dashboard\\add-link" */).then(m => m.default || m)
+const _0f12c1ec = () => import('..\\pages\\dashboard\\_collection.vue' /* webpackChunkName: "pages\\dashboard\\_collection" */).then(m => m.default || m)
 const _859b397c = () => import('..\\pages\\_username.vue' /* webpackChunkName: "pages\\_username" */).then(m => m.default || m)
 
 
@@ -68,6 +69,11 @@ export function createRouter () {
 			path: "/dashboard/add-link",
 			component: _689059f2,
 			name: "dashboard-add-link"
+		},
+		{
+			path: "/dashboard/:collection",
+			component: _0f12c1ec,
+			name: "dashboard-collection"
 		},
 		{
 			path: "/:username",

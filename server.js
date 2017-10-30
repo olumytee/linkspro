@@ -31,6 +31,7 @@ const userSchema = require('./lib/validation').userSchema;
 const userUpdateSchema = require('./lib/validation').userUpdateSchema;
 const collectionSchema = require('./lib/validation').collectionSchema;
 const linkSchema = require('./lib/validation').linkSchema;
+const linkSchemameta = require('./lib/validation').linkSchemameta;
 const linkUpdateSchema = require('./lib/validation').linkUpdateSchema;
 const findMeta = require('./lib/metafinder').findMeta;
 // Body parser, to access req.body
@@ -176,15 +177,23 @@ app.delete('/api/collection/:username', async (req, res) => {
 ////////////////////////////
 //// Links CRUD /////////
 ////////////////////////////
-app.post('/api/link', validate(linkSchema), async (req, res) => {
+app.post('/api/initlink', validate(linkSchema), async (req, res) => {
+  try {
+    const data = req.value.body;
+    const meta = await findMeta(data.url);
+    res.json({ title: meta.title || '', image: meta.image.url, description: meta.description  });
+  } catch (error) {
+    res.status(400).json({ error: error.message || 'Error' });
+  }
+});
+app.post('/api/link', validate(linkSchemameta), async (req, res) => {
   try {
     const data = req.value.body;
     const collection = await Collections.findOne({ username: data.collection });
     const user = req.session.authUser;
-    const meta = await findMeta(data.url);
     const newLink = new Links({
       url: data.url,
-      meta: meta,
+      meta: data.meta,
       links_collection: collection._id,
       user: user._id
     });

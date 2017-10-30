@@ -16,23 +16,55 @@
           <div class="column">
             <p class="text-error" v-if="errorMessage">{{errorMessage}}</p>
             <p class="text-success" v-if="successMessage">{{successMessage}}</p>
-            <form class="" v-on:submit.prevent="add">
+            <form v-on:submit.prevent="initadd" v-if="!meta">
               <div class="columns">
-                <div class="column col-1 col-md-12 small-margin">
-                  <label class="form-label" for="input-example-1">URL</label>
+                <div class="column col-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="form-label" for="input-example-1">URL</label>
+                    <input class="form-input" type="url" id="input-example-1" placeholder="http://google.com" v-model="link">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="input-example-2">Collection</label>
+                    <select class="form-select" id="input-example-2" v-model="collection">
+                      <option disabled value="">Choose a collection</option>
+                      <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                   <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add link</button>
+                  </div>  
                 </div>
-                <div class="column col-6 col-md-12 has-icon-right small-margin">
-                  <input type="url" class="form-input" placeholder="" v-model="link">
-                  <i class="form-icon" :class="{ 'loading': isLoading }"></i>
-                </div>
-                <div class="column col-2 col-md-12 small-margin">
-                  <select class="form-select" v-model="collection">
-                    <option disabled value="">Choose a collection</option>
-                    <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
-                  </select>
-                </div>
-                <div class="column col-2 col-md-12 small-margin">
-                  <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add link</button>
+              </div>
+            </form>
+            <form v-on:submit.prevent="add" v-if="meta">
+              <div class="columns">
+                <div class="column col-6 col-xs-12">
+                  <div class="form-group">
+                    <label class="form-label" for="input-example-1">URL</label>
+                    <input class="form-input" type="url" id="input-example-1" placeholder="http://google.com" v-model="link">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="input-example-2">Collection</label>
+                    <select class="form-select" id="input-example-2" v-model="collection">
+                      <option disabled value="">Choose a collection</option>
+                      <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group" v-if="meta">
+                    <label class="form-label" for="input-example-1">Title</label>
+                    <input class="form-input" type="text" id="input-example-1" placeholder="Google Home" v-model="meta.title">
+                  </div>
+                  <div class="form-group" v-if="meta">
+                    <label class="form-label" for="input-example-1">Description</label>
+                    <input class="form-input" type="text" id="input-example-1" placeholder="http://google.com" v-model="meta.description">
+                  </div>
+                  <div class="form-group" v-if="meta">
+                    <label class="form-label" for="input-example-1">Image</label>
+                    <input class="form-input" type="url" id="input-example-1" placeholder="http://google.com" v-model="meta.image">
+                  </div>
+                  <div class="form-group">
+                   <button class="btn btn-success btn-mod" v-bind:class="{ 'loading': isLoading }" type="submit">Add link</button>
+                  </div>  
                 </div>
               </div>
             </form>
@@ -58,6 +90,7 @@ export default {
       isLoading: false,
       isAvailable: false,
       link: '',
+      meta: null,
       collection: ''
     };
   },
@@ -70,17 +103,37 @@ export default {
     Sidebar
   },
   methods: {
+    initadd() {
+      this.isLoading = true;
+      this.errorMessage = null;
+      axios
+        .post('/api/initlink', {
+          url: this.link,
+          collection: this.collection
+        })
+        .then(res => {
+          this.meta = res.data;
+          this.successMessage = 'Data fetched';
+          this.isLoading = false;
+        })
+        .catch(e => {
+          this.isLoading = false;
+          this.errorMessage = e.response.data.message
+            ? e.response.data.message
+            : 'There was an error';
+        });
+    },
     add() {
       this.isLoading = true;
       this.errorMessage = null;
       axios
         .post('/api/link', {
           url: this.link,
+          meta: this.meta,
           collection: this.collection
         })
         .then(res => {
-          this.link = this.collection = '';
-          this.loginPassword = '';
+          this.link = this.meta = this.collection = null;
           this.successMessage = 'Link added';
           this.isLoading = false;
         })
