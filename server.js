@@ -9,7 +9,9 @@ const axios = require('axios');
 const _ = require('lodash');
 const mongoose = require('mongoose');
 global.Promise = require('q').Promise;
-const mongourl = process.env.MONGODB_URI ? process.env.MONGODB_URI : 'mongodb://localhost/thegram';
+const mongourl = process.env.MONGODB_URI
+  ? process.env.MONGODB_URI
+  : 'mongodb://localhost/thegram';
 mongoose.connect(mongourl, {
   useMongoClient: true,
   promiseLibrary: global.Promise
@@ -181,7 +183,11 @@ app.post('/api/initlink', validate(linkSchema), async (req, res) => {
   try {
     const data = req.value.body;
     const meta = await findMeta(data.url);
-    res.json({ title: meta.title || '', image: meta.image.url, description: meta.description  });
+    res.json({
+      title: meta.title || '',
+      image: meta.image.url,
+      description: meta.description
+    });
   } catch (error) {
     res.status(400).json({ error: error.message || 'Error' });
   }
@@ -255,14 +261,14 @@ app.get('/api/u/:page', async (req, res) => {
       if (links.length > 0) {
         res.status(200).json(links);
       } else {
-        res.sendStatus(200).json({ message: 'NoLinks' });
+        res.redirect('/404');
       }
     } else {
-      res.sendStatus(404);
+      res.redirect('/404');
     }
   } catch (error) {
     const message = error.message ? error.message : 'There was an error';
-    res.status(401).send({ error: message });
+    res.redirect('/404');
   }
 });
 

@@ -105,6 +105,11 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    if (this.page == undefined) {
+      window.location.replace('/404');
+    }
+  },
   components: {
     CustomHeader,
     CustomFooter
@@ -122,6 +127,18 @@ export default {
   min-width: 100%;
   height: 300px;
 }
+.card {
+  text-decoration: none;
+  width: 100%;
+  background-clip: padding-box;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.1);
+}
+.card:hover {
+  text-decoration: none;
+  box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.15);
+}
 
 [data-letters]:before {
   content: attr(data-letters);
@@ -138,17 +155,8 @@ export default {
   color: white;
 }
 
-.navbar {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-
 @media only screen and (max-width: 840px) {
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .navbar {
     padding-left: 1rem;
     padding-right: 1rem;
   }

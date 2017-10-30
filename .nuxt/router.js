@@ -6,6 +6,7 @@ Vue.use(Router)
 const _3350fddf = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages\\index" */).then(m => m.default || m)
 const _746ac0d6 = () => import('..\\pages\\Login.vue' /* webpackChunkName: "pages\\Login" */).then(m => m.default || m)
 const _e48b5d7e = () => import('..\\pages\\dashboard\\index.vue' /* webpackChunkName: "pages\\dashboard\\index" */).then(m => m.default || m)
+const _0dde5485 = () => import('..\\pages\\404.vue' /* webpackChunkName: "pages\\404" */).then(m => m.default || m)
 const _1d4b982a = () => import('..\\pages\\dashboard\\add-collection.vue' /* webpackChunkName: "pages\\dashboard\\add-collection" */).then(m => m.default || m)
 const _689059f2 = () => import('..\\pages\\dashboard\\add-link.vue' /* webpackChunkName: "pages\\dashboard\\add-link" */).then(m => m.default || m)
 const _0f12c1ec = () => import('..\\pages\\dashboard\\_collection.vue' /* webpackChunkName: "pages\\dashboard\\_collection" */).then(m => m.default || m)
@@ -59,6 +60,11 @@ export function createRouter () {
 			path: "/dashboard",
 			component: _e48b5d7e,
 			name: "dashboard"
+		},
+		{
+			path: "/404",
+			component: _0dde5485,
+			name: "404"
 		},
 		{
 			path: "/dashboard/add-collection",
