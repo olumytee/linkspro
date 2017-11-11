@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema(
     email: { type: String, unique: true },
     password: String,
     meta: mongoose.Schema.Types.Mixed,
+    apiKey: String,
     collections: [{ ref: 'Collections', type: mongoose.Schema.Types.ObjectId }]
   },
   { timestamps: true }

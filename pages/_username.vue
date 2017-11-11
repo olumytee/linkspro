@@ -4,37 +4,26 @@
     <div class="container">
       <div class="columns">
         <div class="column col-8 col-mx-auto col-md-12">
-          <div class="empty" v-if="!top">
-            <p class="empty-subtitle">You have not added any link yet</p>
-            <div class="empty-action">
-              <a class="btn btn-primary" href="/dashboard/add-links">Add a link</a>
-            </div>
-          </div>
-          <div class="" v-if="top">
+          <div class="" v-if="top.length > 0">
             <div class="text-center">
               <p :data-letters="page.substr(0, 1).toUpperCase()"></p>
               <p class="empty-subtitle text-center">{{`@${page}'s links`}}</p>
             </div>
             <div class="columns">
-              <div class="column col-6 col-md-12">
-                <a :href="top.url">
+              <div class="column col-6 col-md-12" v-for="i in top" :key="i._id">
+                <a :href="i.url">
                   <div class="card">
                     <div class="card-image">
-                      <img :src="top.meta.image" class="img-responsive">
+                      <img :src="i.meta.image" class="img-responsive">
                     </div>
                     <div class="card-header">
-                      <div class="card-title h5">{{top.meta.title}}</div>
+                      <div class="card-title h5">{{i.meta.title}}</div>
                     </div>
                     <div class="card-body">
-                      {{top.meta.description}}
+                      {{i.meta.description}}
                     </div>
                   </div>
                 </a>
-              </div>
-              <div class="column col-6 col-md-12">
-                <div class="card">
-
-                </div>
               </div>
             </div>
             <div>
@@ -51,6 +40,12 @@
                   </div>
                 </a>
               </div>
+            </div>
+          </div>
+          <div class="empty" v-else>
+            <p class="empty-subtitle">You have not added any link yet</p>
+            <div class="empty-action">
+              <a class="btn btn-primary" href="/dashboard/add-links">Add a link</a>
             </div>
           </div>
         </div>
@@ -76,8 +71,8 @@ export default {
       if (res.data && res.data.length > 0) {
         return {
           page: page,
-          top: res.data[0],
-          links: res.data.filter((v, i) => i !== 0)
+          top: res.data.filter((v, i) => i === 0 || i === 1),
+          links: res.data.filter((v, i) => i !== 0 )
         };
       } else {
         return {
