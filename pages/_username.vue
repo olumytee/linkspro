@@ -72,12 +72,12 @@ export default {
         return {
           page: page,
           top: res.data.filter((v, i) => i === 0 || i === 1),
-          links: res.data.filter((v, i) => i !== 0 || i !== 1 )
+          links: res.data.filter((v, i) => i !== 0 && i !== 1 )
         };
       } else {
         return {
           page: page,
-          top: null,
+          top: [],
           links: []
         };
       }
