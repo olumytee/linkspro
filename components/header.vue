@@ -5,7 +5,9 @@
     <section class="header--padding">
       <header class="navbar">
         <section class="navbar-section">
-          <a href="/" class="navbar-brand text-gray">MyCoolLink</a>
+          <a href="/">
+            <img src="../assets/img/logo.png" width="110">
+          </a>
         </section>
         <section class="navbar-section">
           <a href="/login" class="btn btn-cta" v-if="!$store.state.authUser">Sign in</a>

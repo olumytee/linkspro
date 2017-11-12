@@ -86,12 +86,12 @@ export const actions = {
         throw new Error(errorMessage);
       });
   },
-  delete_collection({ commit }, { username }) {
+  delete_collection({ commit }, { collectionName }) {
     return axios
-      .delete(`/api/collection/${username}`)
+      .delete(`/api/collection/${collectionName}`)
       .then(res => {
         const data = this.state.collectionsTable.filter(
-          e => e.username !== username
+          e => e.collectionName !== collectionName
         );
         commit('SET_ACCOUNTS', data);
       })

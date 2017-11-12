@@ -127,38 +127,38 @@ app.get('/api/dashboard', async (req, res) => {
 ////////////////////////////
 app.post('/api/collection', validate(collectionSchema), async (req, res) => {
   try {
-    const username = req.value.body.username;
+    const collection = req.value.body.collection;
     const newCollection = new Collections({
-      username: username,
+      collectionName: collection,
       user: req.session.authUser._id
     });
-    const collection = await newCollection.save();
+    const savedCollection = await newCollection.save();
     const updateUser = await Users.findByIdAndUpdate(req.session.authUser._id, {
-      $push: { collections: collection._id }
+      $push: { collections: savedCollection._id }
     });
-    res.json(collection.toObject());
+    res.json(savedCollection.toObject());
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: error.message || 'Error' });
   }
 });
 
-app.get('/api/collection/:username', async (req, res) => {
+app.get('/api/collection/:name', async (req, res) => {
   try {
-    const username = req.params.username;
-    const collection = await Collections.findOne({ username: username });
+    const name = req.params.name;
+    const collection = await Collections.findOne({ collectionName: name });
     res.json(collection.toObject());
   } catch (error) {
     res.status(400).json({ error: error.message || 'Error' });
   }
 });
 
-app.delete('/api/collection/:username', async (req, res) => {
+app.delete('/api/collection/:name', async (req, res) => {
   try {
-    const username = req.params.username;
+    const name = req.params.name;
     const user = req.session.authUser;
     const collection = await Collections.findOne({
-      username: username
+      collectionName: name
     }).populate('user');
 
     if (user._id.toString() === collection.user._id.toString()) {
@@ -195,7 +195,9 @@ app.post('/api/initlink', validate(linkSchema), async (req, res) => {
 app.post('/api/link', validate(linkSchemameta), async (req, res) => {
   try {
     const data = req.value.body;
-    const collection = await Collections.findOne({ username: data.collection });
+    const collection = await Collections.findOne({
+      collectionName: data.collection
+    });
     const user = req.session.authUser;
     const newLink = new Links({
       url: data.url,
@@ -251,7 +253,7 @@ app.delete('/api/link/:id', async (req, res) => {
 app.get('/api/u/:page', async (req, res) => {
   try {
     const page = req.params.page;
-    const collection = await Collections.findOne({ username: page });
+    const collection = await Collections.findOne({ collectionName: page });
     if (collection) {
       const links = await Links.find({
         links_collection: collection._id

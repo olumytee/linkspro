@@ -27,7 +27,7 @@
                     <label class="form-label" for="input-example-2">Collection</label>
                     <select class="form-select" id="input-example-2" v-model="collection">
                       <option disabled value="">Choose a collection</option>
-                      <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                      <option v-for="i in $store.state.collectionsTable" :value="i.collectionName" :key="i.collectionName">{{i.collectionName}}</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -47,7 +47,7 @@
                     <label class="form-label" for="input-example-2">Collection</label>
                     <select class="form-select" id="input-example-2" v-model="collection">
                       <option disabled value="">Choose a collection</option>
-                      <option v-for="i in $store.state.collectionsTable" :value="i.username" :key="i.username">{{i.username}}</option>
+                      <option v-for="i in $store.state.collectionsTable" :value="i.collectionName" :key="i.collectionName">{{i.collectionName}}</option>
                     </select>
                   </div>
                   <div class="form-group" v-if="meta">
@@ -160,6 +160,25 @@ export default {
 };
 </script>
 <style scoped>
+.btn-mod {
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  line-height: 1.5;
+  padding: 0.5em, 2em;
+  border: none;
+  background: #a78bde;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.btn-mod:hover {
+  background: #ffffff;  
+  color: #a78bde;
+  text-shadow: none;
+  box-shadow: 0 2px 16spx 0 rgba(0, 0, 0, 0.2);
+}
 .off-canvas .off-canvas-sidebar {
   padding: 0rem;
 }

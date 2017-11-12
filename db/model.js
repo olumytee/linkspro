@@ -30,7 +30,7 @@ const Users = mongoose.model('Users', userSchema);
 
 const collectionsSchema = mongoose.Schema(
   {
-    username: { type: String, unique: true },
+    collectionName: { type: String, unique: true },
     links: [{ ref: 'Links', type: mongoose.Schema.Types.ObjectId }],
     user: { ref: 'Users', type: String }
   },

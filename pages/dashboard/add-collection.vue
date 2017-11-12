@@ -19,8 +19,7 @@
             <div class="columns">
               <div class="column col-6 col-md-12">
                 <p>
-                  *This should ideally be your instagram username. For example if your instagram username is 'beyonce', you should enter 'beyonce' below so that you can get the bio link
-                  <a href="#">mycoo.link/beyonce</a>
+                  Enter a collection name and get a unique URL you can share accross the web eg enter "football" to get a collection with the link <a href="#">mycoo.link/football</a>
                 </p>
               </div>
             </div>
@@ -32,7 +31,7 @@
                   <label class="form-label" for="input-example-1">Collection name</label>
                 </div>
                 <div class="column col-4 col-md-12 has-icon-right small-margin">
-                  <input type="text" class="form-input" placeholder="" v-model="collectionName" required>
+                  <input type="text" class="form-input" placeholder="" v-model="collectionName">
                   <i class="form-icon" :class="{ 'loading': isLoading }"></i>
                 </div>
                 <div class="column col-2 col-md-12 small-margin">
@@ -83,7 +82,7 @@ export default {
         this.errorMessage = null;
         axios
           .post('/api/collection', {
-            username: this.collectionName
+            collection: this.collectionName
           })
           .then(res => {
             this.collectionName = '';
@@ -104,6 +103,25 @@ export default {
 };
 </script>
 <style scoped>
+.btn-mod {
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  line-height: 1.5;
+  padding: 0.5em, 2em;
+  border: none;
+  background: #a78bde;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.btn-mod:hover {
+  background: #ffffff;  
+  color: #a78bde;
+  text-shadow: none;
+  box-shadow: 0 2px 16spx 0 rgba(0, 0, 0, 0.2);
+}
 .off-canvas .off-canvas-sidebar {
   padding: 0rem;
 }

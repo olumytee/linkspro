@@ -4,12 +4,14 @@
     </section>
     <ul class="menu">
       <li class="menu-item centeerr">
-        <a class="text-center" href="/" >MyCoolLink</a>
+        <a class="text-center" href="/" >
+          <img src="../assets/img/logo.png" width="110">
+        </a>
       </li>
       <li class="menu-item centeerr">
         <div class="centeerr text-center" :data-letters="$store.state.authUser.email.substr(0, 1).toUpperCase()">
         </div>
-        <p class="centeerr text-center">{{$store.state.authUser.email}}</p>
+        <p class="centeerr text-center text--user">{{$store.state.authUser.email}}</p>
       </li>
       <li class="divider" data-content="MENU">
       </li>
@@ -65,6 +67,9 @@ export default {
 };
 </script>
 <style >
+.text--user {
+  font-size: 14px;
+}
 [data-letters]:before {
   content: attr(data-letters);
   display: inline-block;

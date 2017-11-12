@@ -34,13 +34,13 @@
                 <tbody v-if="$store.state.collectionsTable">
                   <tr class="" v-for="item in $store.state.collectionsTable" :key="item._id">
                     <td>
-                      <a :href="'/' + item.username" target="_blank"> {{item.username}} </a>
+                      <a :href="'/' + item.collectionName" target="_blank"> {{item.collectionName}} </a>
                     </td>
                     <td>{{item.links.length || 0 }}</td>
-                    <td>{{`https://mycoo.link/${item.username}` }}</td>
+                    <td>{{`https://mycoo.link/${item.collectionName}` }}</td>
                     <td>
                       <div class="">
-                        <button class="btn btn-action" @click="remove(item.username)">
+                        <button class="btn btn-action" @click="remove(item.collectionName)">
                           <i class="icon icon-delete"></i>
                         </button>
                         &nbsp;
@@ -103,10 +103,10 @@ export default {
           this.isLoading = false;
         });
     },
-    remove(username) {
-      console.log(username);
+    remove(collectionName) {
+      console.log(collectionName);
       this.$store
-        .dispatch('delete_collection', { username: username })
+        .dispatch('delete_collection', { collectionName: collectionName })
         .then(res => {
           console.log('done');
         })

@@ -1,8 +1,14 @@
 <template>
   <div class="container bottomDiv">
     <div class="columns">
-      <div class="column">
-        <h2>Booom!</h2>
+      <div class="column is-3">
+        &copy; 2017, All Rights Reserved.
+      </div>
+      <div class="column is-4">
+        
+      </div>
+      <div class="column is-5">
+        
       </div>
     </div>
   </div>
@@ -16,8 +22,7 @@ export default {
 <style scoped>
 .container {
   margin-top: 2rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding: 4rem;
   height: 4rem;
   background: #ECE9E6;
   background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);

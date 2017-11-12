@@ -1,13 +1,7 @@
 <template>
   <div class="main">
     <custom-header></custom-header>
-    <div class="columns">
-      <div class="column">
-        <div class="empty emptyMod">
-        </div>
-      </div>
-    </div>
-    <div class="container">
+    <div class="container content--padding">
       <div class="columns">
         <div class="column col-md-12">
           <div class="columns">
@@ -127,14 +121,33 @@ export default {
 </script>
 
 <style scoped>
+.btn-mod {
+  font-size: 16px;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+  line-height: 1.5;
+  padding: 0.5em, 2em;
+  border: none;
+  background: #a78bde;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.14), 0 2px 8px 0 rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.btn-mod:hover {
+  background: #ffffff;  
+  color: #a78bde;
+  text-shadow: none;
+  box-shadow: 0 2px 16spx 0 rgba(0, 0, 0, 0.2);
+}
 .container {
   padding-left: 4rem;
   padding-right: 4rem;
 }
 
-.emptyMod {
-  padding: 0.4rem 0.1rem;
-  text-align: left;
+.content--padding {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 @media only screen and (max-width: 840px) {
