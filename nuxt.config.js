@@ -1,13 +1,13 @@
 module.exports = {
   head: {
-    title: 'MyCoolLink',
+    title: 'LinksPro',
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'
       },
-      { hid: 'description', content: 'MyCoolLink' }
+      { hid: 'description', content: 'LinksPro' }
     ]
   },
   css: [

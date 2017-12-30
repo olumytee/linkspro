@@ -10,7 +10,7 @@
               <form v-on:submit.prevent="login">
                 <div class="form-group">
                   <label class="form-label" for="input-example-1">Email</label>
-                  <input class="form-input" type="email" id="input-example-1" placeholder="john@MyCoolLink" required v-model="loginEmail">
+                  <input class="form-input" type="email" id="input-example-1" placeholder="john@LinksPro" required v-model="loginEmail">
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="password">Password</label>
@@ -31,7 +31,7 @@
               <form v-on:submit.prevent="register" autocomplete="off">
                 <div class="form-group">
                   <label class="form-label" for="input-example-1">Email</label>
-                  <input class="form-input" type="email" id="input-example-1" placeholder="john@MyCoolLink" required v-model="regEmail" readonly onfocus="this.removeAttribute('readonly');">
+                  <input class="form-input" type="email" id="input-example-1" placeholder="john@LinksPro" required v-model="regEmail" readonly onfocus="this.removeAttribute('readonly');">
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="password">Password</label>

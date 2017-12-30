@@ -56,7 +56,7 @@ import CustomFooter from '@/components/footer';
 export default {
   head() {
     return {
-      title: 'MyCoolLink',
+      title: 'LinksPro',
       meta: [
         {
           hid: 'description',
