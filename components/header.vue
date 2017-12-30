@@ -6,7 +6,7 @@
       <header class="navbar">
         <section class="navbar-section">
           <a href="/">
-            <img src="../assets/img/logo.png" width="110">
+            LinksPro
           </a>
         </section>
         <section class="navbar-section">
