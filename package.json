@@ -16,7 +16,7 @@
     "lodash": "^4.17.19",
     "mongoose": "^5.7.5",
     "nuxt": "^1.0.0-alpha1",
-    "open-graph": "^0.2.3",
+    "open-graph": "^0.2.6",
     "q": "^1.5.0"
   },
   "scripts": {
